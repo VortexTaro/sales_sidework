@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react"; // Added missing import for React
 
 const HeroSection = () => (
   <section className="w-full bg-gray-900 text-white">
@@ -60,26 +61,26 @@ const ProblemsSection = () => {
     "会社の看板なしで、自分の本当の実力を試してみたい。",
   ];
 
+  const problemTags = [
+    "正社員の給料が頭打ち",
+    "昇給スピードが遅い", "10年後も同じ業務？", "営業に挑戦したいが社内ポストがない",
+    "部署異動は難関", "転職はリスク", "「副業NG」の社内規定",
+    "副業がバレたらどうしよう", "独立は怖い"
+  ];
+
   return (
     <section id="problems" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
             こんなお悩み、ありませんか？
           </h2>
-          <div className="mt-4 text-gray-500 flex flex-wrap justify-center gap-x-4">
-            <span>現状</span>
-            <span>痛み</span>
-            <span>将来の不安</span>
-            <span>正社員の給料が頭打ち</span>
-            <span>昇給スピードが遅い</span>
-            <span>10年後も同じ業務？</span>
-            <span>営業に挑戦したいが社内ポストがない</span>
-            <span>部署異動は難関</span>
-            <span>転職はリスク</span>
-            <span>「副業NG」の社内規定</span>
-            <span>副業がバレたらどうしよう</span>
-            <span>独立は怖い</span>
+          <div className="mt-6 flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {problemTags.map(tag => (
+              <span key={tag} className="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium shadow-md border border-gray-200">
+                # {tag}
+              </span>
+            ))}
           </div>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
@@ -199,27 +200,39 @@ const TestimonialsSection = () => (
   </section>
 );
 
-const HowItWorksSection = () => (
-  <section id="how-it-works" className="py-20 bg-gray-50">
-    <div className="container mx-auto px-4 text-center">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12">あなたにお任せする仕事の全体像</h2>
-      <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-        <div className="text-center p-6 bg-white rounded-lg shadow-md">1. 得意・興味のある商材を選択</div>
-        <div className="text-xl font-bold text-gray-400">→</div>
-        <div className="text-center p-6 bg-white rounded-lg shadow-md">2. 本部が見込み顧客と日程調整</div>
-        <div className="text-xl font-bold text-gray-400">→</div>
-        <div className="text-center p-6 bg-white rounded-lg shadow-md">3. ZOOMで商談→クロージング</div>
-        <div className="text-xl font-bold text-gray-400">→</div>
-        <div className="text-center p-6 bg-white rounded-lg shadow-md">4. 成約後、成果報酬をお支払い</div>
-      </div>
-      <div className="mt-12">
-        <div className="inline-block bg-black text-white p-6 rounded-lg shadow-lg">
-           <p className="text-xl">▶︎ 仕事フローを30秒で解説【動画埋め込み】</p>
+const HowItWorksSection = () => {
+  const steps = [
+    { text: "1. 得意・興味のある商材を選択" },
+    { text: "2. 本部が見込み顧客と日程調整" },
+    { text: "3. ZOOMで商談→クロージング" },
+    { text: "4. 成約後、成果報酬をお支払い" },
+  ];
+
+  return (
+    <section id="how-it-works" className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-16">
+          あなたにお任せする仕事の全体像
+        </h2>
+        <div className="flex flex-col items-center">
+          {steps.map((step, index) => (
+            <React.Fragment key={index}>
+              <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-200">
+                <p className="text-lg font-semibold text-gray-700">{step.text}</p>
+              </div>
+              {index < steps.length - 1 && (
+                <div className="my-4">
+                  <span className="text-2xl font-bold text-blue-500 hidden md:block">→</span>
+                  <span className="text-2xl font-bold text-blue-500 block md:hidden">↓</span>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const RequirementsSection = () => (
   <section id="requirements" className="py-20 bg-white">
